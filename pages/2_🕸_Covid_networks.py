@@ -61,7 +61,7 @@ def create_graph(data):
         		col2.append(n[1])
 	df3 = pd.DataFrame(list(zip(col1, col2)),columns=['source', 'target'])
 	df3 = pd.DataFrame({'counts' : df3.groupby(['source', 'target']).size()}).reset_index()
-	g = nx.from_pandas_edgelist(df3[df3.counts>100], source='source', target='target', edge_attr='counts')
+	g = nx.from_pandas_edgelist(df3[df3.counts>10], source='source', target='target', edge_attr='counts')
 	return g
 
 
