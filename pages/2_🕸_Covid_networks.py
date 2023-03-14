@@ -73,7 +73,7 @@ data_load_state.text("Done! (using st.cache_data)")
 
 st.sidebar.header("Select date")
 ## Range selector
-cols1,_ = st.columns((1,2)) # To make it narrower
+
 format = 'MMM DD'#, YYYY'  # format output
 start_date = data['date'].min().date() #dt.date(year=2023,month=2,day=20)  #  I need some range in the past
 end_date = data['date'].max().date()#dt.datetime.now().date()
@@ -88,11 +88,19 @@ slider = st.sidebar.slider('', min_value=start_date, value=(start_value_date,end
 #                               'end'],
 #                      index=['date']))
 
-st.write('#Hashtags Network analysis from **'+str(slider[0]) + '** to **' + str(slider[1])+'**')
-mask = (data['date'] > pd.to_datetime(slider[0])) & (data['date'] <= pd.to_datetime(slider[1]))
+st.sidebar.header("Type of Information?")
+option = st.sidebar.selectbox('',('All', 'Information', 'Misinformation'))
 
+st.write('#Hashtags Network analysis from **'+str(slider[0]) + '** to **' + str(slider[1])+'**')
+mask1 = (data['date'] > pd.to_datetime(slider[0])) & (data['date'] <= pd.to_datetime(slider[1]))
+data_1=data.loc[mask1]
+mask2=(data.BERT_Mis==option)
 data_load_state = st.text('Creating graph...')
-g=create_graph(data.loc[mask])
+
+if option!='All':
+	data_1=data_1.loc[mask2]
+
+g=create_graph(data_1)
 data_load_state.text("Done! ")
 
 nt = Network(notebook=True)
