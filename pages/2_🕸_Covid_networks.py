@@ -48,7 +48,7 @@ def load_data():
 	return df2
 
 @st.experimental_memo
-def create_graph(data):
+def create_graph(data,slider_coo):
 	col1 = []
 	col2 = []
 	data['clean_text']=data['clean_text'].str.lower()
@@ -61,11 +61,12 @@ def create_graph(data):
         		col2.append(n[1])
 	df3 = pd.DataFrame(list(zip(col1, col2)),columns=['source', 'target'])
 	df3 = pd.DataFrame({'counts' : df3.groupby(['source', 'target']).size()}).reset_index()
-	g = nx.from_pandas_edgelist(df3[df3.counts>100], source='source', target='target', edge_attr='counts')
+	g = nx.from_pandas_edgelist(df3[df3.counts>slider_coo], source='source', target='target', edge_attr='counts')
 	return g
 
 
-st.sidebar.header("Covid Network")
+
+#st.sidebar.header("Covid Network")
 
 data_load_state = st.text('Loading data...')
 data = load_data()
@@ -91,6 +92,10 @@ slider = st.sidebar.slider('', min_value=start_date, value=(start_value_date,end
 st.sidebar.header("Type of Information?")
 option = st.sidebar.selectbox('',('All', 'Information', 'Misinformation'))
 
+st.sidebar.header("Minimum number of co-occurrences #?")
+st.sidebar.write("Asking for a few co-occurrences can be slow")
+slider_coo = st.sidebar.slider('', min_value=10, value=100 ,max_value=300)
+
 st.write('#Hashtags Network analysis from **'+str(slider[0]) + '** to **' + str(slider[1])+'**')
 mask1 = (data['date'] > pd.to_datetime(slider[0])) & (data['date'] <= pd.to_datetime(slider[1]))
 data_1=data.loc[mask1]
@@ -100,7 +105,7 @@ data_load_state = st.text('Creating graph...')
 if option!='All':
 	data_1=data_1.loc[mask2]
 
-g=create_graph(data_1)
+g=create_graph(data_1,slider_coo)
 data_load_state.text("Done! ")
 
 nt = Network(notebook=True)
