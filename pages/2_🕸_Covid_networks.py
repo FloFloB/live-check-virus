@@ -93,7 +93,7 @@ st.sidebar.header("Type of Information?")
 option = st.sidebar.selectbox('',('All', 'Information', 'Misinformation'))
 
 st.sidebar.header("Minimum number of co-occurrences #?")
-st.sidebar.write("Asking for a few co-occurrences can be slow")
+st.sidebar.write("Asking for few co-occurrences can be slow")
 slider_coo = st.sidebar.slider('', min_value=10, value=100 ,max_value=300)
 
 st.write('#Hashtags Network analysis from **'+str(slider[0]) + '** to **' + str(slider[1])+'**')
