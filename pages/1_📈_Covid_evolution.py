@@ -14,7 +14,7 @@ from pyvis.network import Network
 import numpy as np
 import datetime as dt
 
-@st.experimental_memo(ttl=3600)
+@st.experimental_memo(ttl=10)
 def load_data():
 	server = SSHTunnelForwarder(
 	   	 st.secrets["SSH_host"],
