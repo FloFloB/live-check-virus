@@ -93,7 +93,7 @@ def remove_stopwords(text):
     "wasn't",  'weren',  "weren't",  'won',
     "won't",  'wouldn',  "wouldn't"]
     stop_words = list(list_stopw +['’','“','“','amp','new','”','covid','via','us'])
-    tokens = word_tokenize(text)
+    tokens = text.split()
     for i in range(len(tokens)):
         if tokens[i] not in stop_words:
             removed.append(tokens[i])
