@@ -15,7 +15,7 @@ import numpy as np
 import datetime as dt
 from collections import Counter
 import re, string
-nltk.download('stopwords')
+
 
 from utilities import preprocessText
 
