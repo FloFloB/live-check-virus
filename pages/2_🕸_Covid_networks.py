@@ -19,7 +19,7 @@ st.set_page_config(page_title="Plotting Demo", page_icon="📈")
 
 st.markdown("# Covid Network")
 
-@st.experimental_memo(ttl=10)
+@st.experimental_memo(ttl=3600)
 def load_data():
 	server = SSHTunnelForwarder(
 	   	 st.secrets["SSH_host"],
@@ -44,6 +44,8 @@ def load_data():
 
 	engine.dispose()
 	server.stop()
+	
+	df2['date']=[pd.to_datetime(d) for d in df2.date]
 	
 	return df2
 
