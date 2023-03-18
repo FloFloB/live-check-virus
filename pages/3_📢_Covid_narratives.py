@@ -78,3 +78,13 @@ fig = px.area(data, x="date", y="count", color="word",color_discrete_sequence=px
 
 st.plotly_chart(fig)
 
+st.header('#Covid narratives with line')
+
+df_tt=data
+
+df_tt.sort_values('date', inplace=True)
+fig2 = px.line(df_tt, x="date", y="count", color='word',color_discrete_sequence = px.colors.qualitative.Dark24)
+
+
+st.plotly_chart(fig2)
+
