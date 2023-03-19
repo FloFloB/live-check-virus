@@ -100,7 +100,7 @@ df_t=data
 
 
 df_t['date'] = pd.to_datetime(df['date'], format = '%b %d, %Y')
-df_t['Date_Number'] = df['date'].apply(lambda x:x.toordinal())
+df_t['Date_Number'] = df_t['date'].apply(lambda x:x.toordinal())
 
 # Generate date strings from a manually set start date
 numdays = 9
