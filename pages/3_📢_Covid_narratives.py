@@ -99,7 +99,7 @@ st.header('#Covid narratives with ridgeline')
 df_t=data
 
 
-df_t['date'] = pd.to_datetime(df_t['date'], format = '%b %d, %Y')
+df_t['date'] = pd.to_datetime(df_t['date'])
 df_t['Date_Number'] = df_t['date'].apply(lambda x:x.toordinal())
 
 # Generate date strings from a manually set start date
