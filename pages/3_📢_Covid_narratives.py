@@ -106,6 +106,6 @@ chart=alt.Chart(data).mark_area().encode(
     )
 ).interactive()
 
-st.altair_chart(chart, theme="streamlit", use_container_width=True)
+st.altair_chart(chart, use_container_width=True)
 
 
