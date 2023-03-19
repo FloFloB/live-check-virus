@@ -17,6 +17,12 @@ from collections import Counter
 import re, string
 from nltk import word_tokenize
 from nltk.corpus import stopwords
+import joypy
+import pandas as pd
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+
 
 
 from utilities import preprocessText
@@ -87,4 +93,27 @@ fig2 = px.line(df_tt, x="date", y="count", color='word',color_discrete_sequence 
 
 
 st.plotly_chart(fig2)
+
+st.header('#Covid narratives with ridgeline')
+
+df_t=data
+
+
+df_t['date'] = pd.to_datetime(df['date'], format = '%b %d, %Y')
+df_t['Date_Number'] = df['date'].apply(lambda x:x.toordinal())
+
+# Generate date strings from a manually set start date
+numdays = 9
+start_date = str(df_t['date'].min().date())
+dates = pd.date_range(start = str(df_t['date'].min().date()), end =str(df_t['date'].max().date()),periods=numdays)
+dates = [str(date)[:-12] for date in dates]
+
+fig3, ax = joypy.joyplot(df,  by = 'word', column='Date_Number', 
+                        colormap=matplotlib.cm.autumn, figsize = (10,10), fade = True )
+
+ax[-1].set_xticks(range(numdays))
+ax[-1].set_xticklabels(dates)
+ax[-1].set_xlim([0, 8])
+
+st.plotly_chart(fig3)
 
