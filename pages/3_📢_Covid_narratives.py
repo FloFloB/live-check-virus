@@ -18,8 +18,8 @@ import re, string
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 import joypy
-import pandas as pd
-import numpy as np
+
+
 import matplotlib
 import matplotlib.pyplot as plt
 
