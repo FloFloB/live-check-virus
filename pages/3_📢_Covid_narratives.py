@@ -108,7 +108,7 @@ start_date = str(df_t['date'].min().date())
 dates = pd.date_range(start = str(df_t['date'].min().date()), end =str(df_t['date'].max().date()),periods=numdays)
 dates = [str(date)[:-12] for date in dates]
 
-fig3, ax = joypy.joyplot(df,  by = 'word', column='Date_Number', 
+fig3, ax = joypy.joyplot(df_t,  by = 'word', column='Date_Number', 
                         colormap=matplotlib.cm.autumn, figsize = (10,10), fade = True )
 
 ax[-1].set_xticks(range(numdays))
