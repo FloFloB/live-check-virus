@@ -17,7 +17,7 @@ from collections import Counter
 import re, string
 from nltk import word_tokenize
 from nltk.corpus import stopwords
-import joypy
+import altair as alt
 
 
 import matplotlib
@@ -94,24 +94,18 @@ fig2 = px.line(df_tt, x="date", y="count", color='word',color_discrete_sequence 
 
 st.plotly_chart(fig2)
 
-st.header('#Covid narratives with ridgeline')
+st.header('#Covid narratives with streamgraph')
 
-df_t=data
+chart=alt.Chart(data).mark_area().encode(
+    alt.X('date:T',
+        axis=alt.Axis(format='%d-%m-%Y', domain=False, tickSize=0)
+    ),
+    alt.Y('sum(count):Q', stack='center', axis=None),
+    alt.Color('word:N',
+        scale=alt.Scale(scheme='category20b')
+    )
+).interactive()
 
+st.altair_chart(chart, theme="streamlit", use_container_width=True)
 
-df_t['date'] = pd.to_datetime(df_t['date'])
-df_t['Date_Number'] = df_t['date'].apply(lambda x:x.toordinal())
-
-# Generate date strings from a manually set start date
-numdays = 9
-start_date = str(df_t['date'].min().date())
-dates = pd.date_range(start = str(df_t['date'].min().date()), end =str(df_t['date'].max().date()),periods=numdays)
-dates = [str(date)[:-12] for date in dates]
-
-fig3= joypy.joyplot(df_t,  by = 'word', column='Date_Number', 
-                        colormap=matplotlib.cm.autumn, figsize = (10,10), fade = True )
-
-
-
-st.plotly_chart(fig3)
 
