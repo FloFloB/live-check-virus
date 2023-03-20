@@ -19,7 +19,7 @@ st.set_page_config(page_title="Plotting Demo", page_icon="📈")
 
 st.markdown("# Covid Network")
 
-@st.experimental_memo(ttl=3600)
+@st.experimental_memo
 def load_data():
 	server = SSHTunnelForwarder(
 	   	 st.secrets["SSH_host"],
