@@ -28,7 +28,7 @@ import matplotlib.pyplot as plt
 from utilities import preprocessText
 
 
-@st.experimental_memo(ttl=3600)
+@st.experimental_memo
 def load_data():
 	server = SSHTunnelForwarder(
 	   	 st.secrets["SSH_host"],
