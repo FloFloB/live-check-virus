@@ -103,7 +103,8 @@ chart=alt.Chart(data).mark_area().encode(
     alt.Y('sum(count):Q', stack='center', axis=None),
     alt.Color('word:N',
         scale=alt.Scale(scheme='category20b')
-    )
+    ),
+    tooltip=['word:N','sum(count):Q','date:T']
 ).interactive()
 
 st.altair_chart(chart, use_container_width=True)
