@@ -48,7 +48,7 @@ def load_data():
 
 	engine = create_engine(url_object)
 
-	df2=pd.read_sql_table('covid',con = engine)
+	df2=pd.read_sql_table('covid_clean',con = engine)
 
 
 	engine.dispose()
